@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.composestylelab.home.HomeScreen
 import com.example.composestylelab.labs.interactive_buttons.InteractiveButtonsLab
 import com.example.composestylelab.labs.state_driven_cards.StateDrivenCardsLab
+import com.example.composestylelab.labs.animated_transforms.AnimatedTransformsLab
 import com.example.composestylelab.labs.style_composition.StyleCompositionLab
 
 @Composable
@@ -39,10 +40,15 @@ fun StyleLabNavigation(modifier: Modifier = Modifier) {
             StateDrivenCardsLab(onBack = { navController.popBackStack() })
         }
 
+        composable(LabRoute.AnimatedTransforms.name) {
+            AnimatedTransformsLab(onBack = { navController.popBackStack() })
+        }
+
         LabRoute.entries.filter {
             it != LabRoute.InteractiveButtons &&
                 it != LabRoute.StyleComposition &&
-                it != LabRoute.StateDrivenCards
+                it != LabRoute.StateDrivenCards &&
+                it != LabRoute.AnimatedTransforms
         }.forEach { lab ->
             composable(lab.name) {
                 PlaceholderLabScreen(lab = lab, onBack = { navController.popBackStack() })
