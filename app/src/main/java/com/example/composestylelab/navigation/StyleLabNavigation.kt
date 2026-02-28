@@ -12,6 +12,7 @@ import com.example.composestylelab.labs.animated_transforms.AnimatedTransformsLa
 import com.example.composestylelab.labs.shadow_play.ShadowPlayLab
 import com.example.composestylelab.labs.style_composition.StyleCompositionLab
 import com.example.composestylelab.labs.text_styling.TextStylingLab
+import com.example.composestylelab.labs.theme_integration.ThemeIntegrationLab
 
 @Composable
 fun StyleLabNavigation(modifier: Modifier = Modifier) {
@@ -54,13 +55,18 @@ fun StyleLabNavigation(modifier: Modifier = Modifier) {
             TextStylingLab(onBack = { navController.popBackStack() })
         }
 
+        composable(LabRoute.ThemeIntegration.name) {
+            ThemeIntegrationLab(onBack = { navController.popBackStack() })
+        }
+
         LabRoute.entries.filter {
             it != LabRoute.InteractiveButtons &&
                 it != LabRoute.StyleComposition &&
                 it != LabRoute.StateDrivenCards &&
                 it != LabRoute.AnimatedTransforms &&
                 it != LabRoute.ShadowPlay &&
-                it != LabRoute.TextStyling
+                it != LabRoute.TextStyling &&
+                it != LabRoute.ThemeIntegration
         }.forEach { lab ->
             composable(lab.name) {
                 PlaceholderLabScreen(lab = lab, onBack = { navController.popBackStack() })
