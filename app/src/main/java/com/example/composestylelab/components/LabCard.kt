@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.Style
+import androidx.compose.foundation.style.pressed
+import androidx.compose.foundation.style.styleable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,19 +21,33 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.composestylelab.navigation.LabRoute
 
+@OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 fun LabCard(
     lab: LabRoute,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val surfaceColor = MaterialTheme.colorScheme.surfaceContainer
+    val pressedColor = MaterialTheme.colorScheme.surfaceContainerHighest
+
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .clickable(onClick = onClick)
-            .background(MaterialTheme.colorScheme.surfaceContainer)
-            .padding(16.dp),
+            .styleable(
+                style = Style {
+                    background(surfaceColor)
+                    shape(RoundedCornerShape(16.dp))
+                    contentPadding(16.dp)
+                    pressed(Style {
+                        animate(Style {
+                            background(pressedColor)
+                            scale(0.97f)
+                        })
+                    })
+                },
+            )
+            .clickable(onClick = onClick),
     ) {
         Box(
             modifier = Modifier
