@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composestylelab.home.HomeScreen
 import com.example.composestylelab.labs.interactive_buttons.InteractiveButtonsLab
+import com.example.composestylelab.labs.state_driven_cards.StateDrivenCardsLab
 import com.example.composestylelab.labs.style_composition.StyleCompositionLab
 
 @Composable
@@ -34,7 +35,15 @@ fun StyleLabNavigation(modifier: Modifier = Modifier) {
             StyleCompositionLab(onBack = { navController.popBackStack() })
         }
 
-        LabRoute.entries.filter { it != LabRoute.InteractiveButtons && it != LabRoute.StyleComposition }.forEach { lab ->
+        composable(LabRoute.StateDrivenCards.name) {
+            StateDrivenCardsLab(onBack = { navController.popBackStack() })
+        }
+
+        LabRoute.entries.filter {
+            it != LabRoute.InteractiveButtons &&
+                it != LabRoute.StyleComposition &&
+                it != LabRoute.StateDrivenCards
+        }.forEach { lab ->
             composable(lab.name) {
                 PlaceholderLabScreen(lab = lab, onBack = { navController.popBackStack() })
             }
