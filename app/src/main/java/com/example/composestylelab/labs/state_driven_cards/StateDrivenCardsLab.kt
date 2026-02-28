@@ -148,6 +148,7 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable { cardEnabled = !cardEnabled }
                 .padding(vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,

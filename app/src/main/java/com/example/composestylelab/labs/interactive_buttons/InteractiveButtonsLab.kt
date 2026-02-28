@@ -1,5 +1,6 @@
 package com.example.composestylelab.labs.interactive_buttons
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,8 +32,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
@@ -132,6 +135,55 @@ fun InteractiveButtonsLab(onBack: () -> Unit) {
             }
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Live property readout — makes the Style application visible
+        val baseProperties = listOf(
+            StyleProperty("background", "#3D5AFE", Color(0xFF3D5AFE)),
+            StyleProperty("shape", "RoundedCorner(16dp)"),
+            StyleProperty("contentPadding", "32×24 dp"),
+        )
+        val pressedProperties = listOf(
+            StyleProperty("background", "#1A237E", Color(0xFF1A237E)),
+            StyleProperty("scale", "0.92f"),
+        )
+        val hoveredProperties = listOf(
+            StyleProperty("background", "#536DFE", Color(0xFF536DFE)),
+            StyleProperty("scale", "1.04f"),
+            StyleProperty("borderWidth", "2dp"),
+            StyleProperty("borderColor", "white@50%", Color.White.copy(alpha = 0.5f)),
+        )
+        val focusedProperties = listOf(
+            StyleProperty("borderWidth", "3dp"),
+            StyleProperty("borderColor", "white", Color.White),
+            StyleProperty("background", "#304FFE", Color(0xFF304FFE)),
+        )
+
+        ActiveStyleProperties(
+            label = "BASE STYLE",
+            properties = baseProperties,
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        ActiveStyleProperties(
+            label = "PRESSED → animate(Style { ... })",
+            properties = pressedProperties,
+            visible = isPressed,
+        )
+
+        ActiveStyleProperties(
+            label = "HOVERED → animate(Style { ... })",
+            properties = hoveredProperties,
+            visible = isHovered,
+        )
+
+        ActiveStyleProperties(
+            label = "FOCUSED → animate(Style { ... })",
+            properties = focusedProperties,
+            visible = isFocused,
+        )
+
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
@@ -203,6 +255,7 @@ private fun StateToggleRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onCheckedChange(!checked) }
             .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,

@@ -27,8 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 import com.example.composestylelab.theme.LabCyan
 
 @OptIn(ExperimentalFoundationStyleApi::class)
@@ -123,13 +125,53 @@ fun StyleCompositionLab(onBack: () -> Unit) {
                         if (layers.isEmpty()) append("No layers active")
                         else {
                             append("Active: ")
-                            append(layers.joinToString(" + "))
+                            append(layers.joinToString(" .then() "))
                         }
                     },
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Live property readout — shows which Style properties each layer contributes
+        ActiveStyleProperties(
+            label = "BASE CARD → Style { }",
+            properties = listOf(
+                StyleProperty("background", "cyan@15%", LabCyan.copy(alpha = 0.15f)),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "24×20 dp"),
+            ),
+            visible = baseEnabled,
+        )
+
+        if (baseEnabled && elevatedEnabled) {
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+
+        ActiveStyleProperties(
+            label = "ELEVATED → .then(Style { })",
+            properties = listOf(
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "#B0BEC5", Color(0xFFB0BEC5)),
+                StyleProperty("scale", "1.02f"),
+            ),
+            visible = elevatedEnabled,
+        )
+
+        if ((baseEnabled || elevatedEnabled) && darkEnabled) {
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+
+        ActiveStyleProperties(
+            label = "DARK → .then(Style { })",
+            properties = listOf(
+                StyleProperty("background", "#1E1E2E ← overrides base", Color(0xFF1E1E2E)),
+                StyleProperty("contentColor", "white", Color.White),
+            ),
+            visible = darkEnabled,
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -218,6 +260,7 @@ private fun StyleToggle(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onToggle(!enabled) }
             .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
