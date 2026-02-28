@@ -13,6 +13,7 @@ import com.example.composestylelab.labs.shadow_play.ShadowPlayLab
 import com.example.composestylelab.labs.style_composition.StyleCompositionLab
 import com.example.composestylelab.labs.text_styling.TextStylingLab
 import com.example.composestylelab.labs.theme_integration.ThemeIntegrationLab
+import com.example.composestylelab.labs.custom_components.CustomComponentsLab
 
 @Composable
 fun StyleLabNavigation(modifier: Modifier = Modifier) {
@@ -59,29 +60,8 @@ fun StyleLabNavigation(modifier: Modifier = Modifier) {
             ThemeIntegrationLab(onBack = { navController.popBackStack() })
         }
 
-        LabRoute.entries.filter {
-            it != LabRoute.InteractiveButtons &&
-                it != LabRoute.StyleComposition &&
-                it != LabRoute.StateDrivenCards &&
-                it != LabRoute.AnimatedTransforms &&
-                it != LabRoute.ShadowPlay &&
-                it != LabRoute.TextStyling &&
-                it != LabRoute.ThemeIntegration
-        }.forEach { lab ->
-            composable(lab.name) {
-                PlaceholderLabScreen(lab = lab, onBack = { navController.popBackStack() })
-            }
+        composable(LabRoute.CustomComponents.name) {
+            CustomComponentsLab(onBack = { navController.popBackStack() })
         }
-    }
-}
-
-@Composable
-private fun PlaceholderLabScreen(lab: LabRoute, onBack: () -> Unit) {
-    com.example.composestylelab.components.LabScaffold(
-        title = lab.title,
-        description = lab.subtitle,
-        onBack = onBack,
-    ) {
-        androidx.compose.material3.Text("Coming soon...")
     }
 }
