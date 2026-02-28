@@ -34,8 +34,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
@@ -47,6 +49,8 @@ fun ShadowPlayLab(onBack: () -> Unit) {
             "illusions -- the building blocks of neumorphism via declarative styles.",
         onBack = onBack,
     ) {
+        var isPressed by remember { mutableStateOf(false) }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         // -- Section 1: Raised / Pressed Toggle ----------------------------
@@ -67,7 +71,37 @@ fun ShadowPlayLab(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        RaisedPressedToggle()
+        RaisedPressedToggle(
+            isPressed = isPressed,
+            onToggle = { isPressed = it },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "RAISED (BASE)",
+            properties = listOf(
+                StyleProperty("background", "#E0E5EC", Color(0xFFE0E5EC)),
+                StyleProperty("shape", "RoundedCorner(20dp)"),
+                StyleProperty("contentPadding", "24\u00D728dp"),
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "white@80%", Color.White.copy(alpha = 0.8f)),
+                StyleProperty("scale", "1.02f"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        ActiveStyleProperties(
+            label = "SUNKEN \u2192 checked(animate(Style { ... }))",
+            properties = listOf(
+                StyleProperty("borderColor", "#A3B1C6", Color(0xFFA3B1C6)),
+                StyleProperty("background", "#D1D9E6", Color(0xFFD1D9E6)),
+                StyleProperty("scale", "0.98f"),
+                StyleProperty("alpha", "0.9f"),
+            ),
+            visible = isPressed,
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -91,6 +125,21 @@ fun ShadowPlayLab(onBack: () -> Unit) {
 
         DepthCards()
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "DEPTH CARD (BASE)",
+            properties = listOf(
+                StyleProperty("background", "#E8EDF2", Color(0xFFE8EDF2)),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "20dp"),
+                StyleProperty("borderWidth", "1dp"),
+                StyleProperty("borderColor", "white@50%", Color.White.copy(alpha = 0.5f)),
+                StyleProperty("pressed.scale", "0.97f"),
+                StyleProperty("pressed.alpha", "0.85f"),
+            ),
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
 
         // -- Section 3: Neumorphic Buttons ---------------------------------
@@ -112,6 +161,22 @@ fun ShadowPlayLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         NeumorphicButtons()
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "NEUMORPHIC BUTTON (BASE)",
+            properties = listOf(
+                StyleProperty("background", "#E0E5EC", Color(0xFFE0E5EC)),
+                StyleProperty("shape", "RoundedCorner(14dp)"),
+                StyleProperty("contentPadding", "16\u00D714dp"),
+                StyleProperty("borderWidth", "1.5dp"),
+                StyleProperty("borderColor", "white@70%", Color.White.copy(alpha = 0.7f)),
+                StyleProperty("scale", "1.01f"),
+                StyleProperty("pressed.scale", "0.96f"),
+                StyleProperty("pressed.alpha", "0.85f"),
+            ),
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -192,9 +257,11 @@ private val NeumorphText = Color(0xFF4A5568)
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
-private fun RaisedPressedToggle(modifier: Modifier = Modifier) {
-    var isPressed by remember { mutableStateOf(false) }
-
+private fun RaisedPressedToggle(
+    isPressed: Boolean,
+    onToggle: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val raisedPressedStyle = Style {
         background(NeumorphBg)
         shape(RoundedCornerShape(20.dp))
@@ -219,7 +286,7 @@ private fun RaisedPressedToggle(modifier: Modifier = Modifier) {
             .styleable(style = raisedPressedStyle)
             .toggleable(
                 value = isPressed,
-                onValueChange = { isPressed = it },
+                onValueChange = onToggle,
                 role = Role.Switch,
             ),
     ) {

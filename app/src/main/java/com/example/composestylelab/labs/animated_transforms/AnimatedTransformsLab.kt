@@ -30,8 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
@@ -43,6 +45,9 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
             "with minimal code.",
         onBack = onBack,
     ) {
+        var spinChecked by remember { mutableStateOf(false) }
+        var slideChecked by remember { mutableStateOf(false) }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         // -- Section 1: Bouncy Press Button ----------------------------------
@@ -64,6 +69,26 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
 
         BouncyPressButton()
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "BASE Style { }",
+            properties = listOf(
+                StyleProperty("background", "#FF6D00", Color(0xFFFF6D00)),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "24dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        ActiveStyleProperties(
+            label = "PRESSED \u2192 animate(Style { ... })  \u2022  press & hold to activate",
+            properties = listOf(
+                StyleProperty("scale", "0.85f"),
+            ),
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
 
         // -- Section 2: Spin on Select --------------------------------------
@@ -83,7 +108,32 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        SpinOnSelectCard()
+        SpinOnSelectCard(
+            isChecked = spinChecked,
+            onToggle = { spinChecked = it },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "BASE Style { }",
+            properties = listOf(
+                StyleProperty("background", "#3D5AFE", Color(0xFF3D5AFE)),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "20dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        ActiveStyleProperties(
+            label = "CHECKED \u2192 animate(Style { ... })",
+            properties = listOf(
+                StyleProperty("rotationZ", "360f"),
+                StyleProperty("background", "#00C853", Color(0xFF00C853)),
+            ),
+            visible = spinChecked,
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -104,7 +154,32 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        TranslationSlideCard()
+        TranslationSlideCard(
+            isChecked = slideChecked,
+            onToggle = { slideChecked = it },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "BASE Style { }",
+            properties = listOf(
+                StyleProperty("background", "#00BCD4", Color(0xFF00BCD4)),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "20dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        ActiveStyleProperties(
+            label = "CHECKED \u2192 animate(Style { ... })",
+            properties = listOf(
+                StyleProperty("translationX", "50f"),
+                StyleProperty("translationY", "-10f"),
+            ),
+            visible = slideChecked,
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -209,9 +284,11 @@ private fun BouncyPressButton(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
-private fun SpinOnSelectCard(modifier: Modifier = Modifier) {
-    var isChecked by remember { mutableStateOf(false) }
-
+private fun SpinOnSelectCard(
+    isChecked: Boolean,
+    onToggle: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val spinStyle = Style {
         background(Color(0xFF3D5AFE))
         shape(RoundedCornerShape(16.dp))
@@ -230,7 +307,7 @@ private fun SpinOnSelectCard(modifier: Modifier = Modifier) {
             .styleable(style = spinStyle)
             .toggleable(
                 value = isChecked,
-                onValueChange = { isChecked = it },
+                onValueChange = onToggle,
                 role = Role.Checkbox,
             ),
     ) {
@@ -264,8 +341,11 @@ private fun SpinOnSelectCard(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
-private fun TranslationSlideCard(modifier: Modifier = Modifier) {
-    var isChecked by remember { mutableStateOf(false) }
+private fun TranslationSlideCard(
+    isChecked: Boolean,
+    onToggle: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
 
     val slideStyle = Style {
         background(Color(0xFF00BCD4))
@@ -285,7 +365,7 @@ private fun TranslationSlideCard(modifier: Modifier = Modifier) {
             .styleable(style = slideStyle)
             .toggleable(
                 value = isChecked,
-                onValueChange = { isChecked = it },
+                onValueChange = onToggle,
                 role = Role.Checkbox,
             ),
     ) {

@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 import com.example.composestylelab.theme.LabTeal
 
 @OptIn(ExperimentalFoundationStyleApi::class, ExperimentalLayoutApi::class)
@@ -53,6 +55,18 @@ fun CustomComponentsLab(onBack: () -> Unit) {
             StyledChip(onClick = {}) { Text("Compose") }
             StyledChip(onClick = {}) { Text("Styles API") }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "StyledChipDefaults.style()",
+            properties = listOf(
+                StyleProperty("background", "secondaryContainer", MaterialTheme.colorScheme.secondaryContainer),
+                StyleProperty("shape", "RoundedCorner(8dp)"),
+                StyleProperty("contentPadding", "16×8dp"),
+                StyleProperty("contentColor", "onSecondaryContainer", MaterialTheme.colorScheme.onSecondaryContainer),
+            ),
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -116,6 +130,17 @@ fun CustomComponentsLab(onBack: () -> Unit) {
             }
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "CUSTOM → Style { } overrides defaults entirely",
+            properties = listOf(
+                StyleProperty("background", "varies"),
+                StyleProperty("shape", "varies"),
+                StyleProperty("contentColor", "varies"),
+            ),
+        )
+
         Spacer(modifier = Modifier.height(24.dp))
 
         // --- Section 3: StyledCard — Default ---
@@ -141,6 +166,18 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "StyledCardDefaults.style()",
+            properties = listOf(
+                StyleProperty("background", "surfaceContainer", MaterialTheme.colorScheme.surfaceContainer),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "20dp"),
+                StyleProperty("contentColor", "onSurface", MaterialTheme.colorScheme.onSurface),
+            ),
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -248,6 +285,28 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "StyledCardDefaults.style().then(accentOverlay)",
+            properties = listOf(
+                StyleProperty("background", "surfaceContainer", MaterialTheme.colorScheme.surfaceContainer),
+                StyleProperty("shape", "RoundedCorner(16dp)"),
+                StyleProperty("contentPadding", "20dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "ACCENT OVERLAY → .then(Style { })",
+            properties = listOf(
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "teal", LabTeal),
+                StyleProperty("scale", "1.01f"),
+            ),
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 

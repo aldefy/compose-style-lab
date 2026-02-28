@@ -26,8 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 import com.example.composestylelab.theme.ComposeStyleLabTheme
 
 @Composable
@@ -44,7 +46,10 @@ fun ThemeIntegrationLab(onBack: () -> Unit) {
         var isDark by remember { mutableStateOf(false) }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { isDark = !isDark }
+                .padding(vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -71,13 +76,63 @@ fun ThemeIntegrationLab(onBack: () -> Unit) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     ThemedCardDemo()
 
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    ActiveStyleProperties(
+                        label = "THEMED CARD \u2192 Style { }",
+                        properties = listOf(
+                            StyleProperty("background", "surface (theme-aware)"),
+                            StyleProperty("contentColor", "onSurface"),
+                            StyleProperty("shape", "RoundedCorner(16dp)"),
+                            StyleProperty("contentPadding", "20dp"),
+                            StyleProperty("borderWidth", "2dp"),
+                            StyleProperty("borderColor", "primary"),
+                        ),
+                    )
+
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ThemedPressButtonDemo()
 
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    ActiveStyleProperties(
+                        label = "THEMED BUTTON \u2192 Style { }",
+                        properties = listOf(
+                            StyleProperty("background", "primary (theme-aware)"),
+                            StyleProperty("contentColor", "onPrimary"),
+                            StyleProperty("shape", "RoundedCorner(12dp)"),
+                            StyleProperty("contentPadding", "16dp"),
+                        ),
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    ActiveStyleProperties(
+                        label = "PRESSED \u2192 animate(Style { ... })",
+                        properties = listOf(
+                            StyleProperty("background", "surface"),
+                            StyleProperty("contentColor", "onSurface"),
+                            StyleProperty("scale", "0.95f"),
+                        ),
+                    )
+
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ThemedOutlineDemo()
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    ActiveStyleProperties(
+                        label = "THEMED OUTLINE \u2192 Style { }",
+                        properties = listOf(
+                            StyleProperty("background", "surfaceVariant"),
+                            StyleProperty("contentColor", "onSurfaceVariant"),
+                            StyleProperty("shape", "RoundedCorner(12dp)"),
+                            StyleProperty("borderWidth", "1dp"),
+                            StyleProperty("borderColor", "secondary"),
+                        ),
+                    )
                 }
             }
         }

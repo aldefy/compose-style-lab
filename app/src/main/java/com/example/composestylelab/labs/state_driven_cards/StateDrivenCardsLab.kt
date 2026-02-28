@@ -37,8 +37,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
 import com.example.composestylelab.components.LabScaffold
+import com.example.composestylelab.components.StyleProperty
 
 private val AccentBlue = Color(0xFF3D5AFE)
 private val AccentGreen = Color(0xFF00C853)
@@ -90,6 +92,29 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
             }
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "Style { } — base properties",
+            properties = listOf(
+                StyleProperty("background", "#F5F5F5", Color(0xFFF5F5F5)),
+                StyleProperty("shape", "RoundedCorner(12dp)"),
+                StyleProperty("contentPadding", "16dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "selected() — active on \"${options[selectedIndex]}\"",
+            properties = listOf(
+                StyleProperty("background", "blue@15%", AccentBlue.copy(alpha = 0.15f)),
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "#3D5AFE", AccentBlue),
+            ),
+            visible = true,
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
 
         // ── Section 2: Toggleable Cards ──────────────────────
@@ -123,6 +148,30 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "Style { } — base properties",
+            properties = listOf(
+                StyleProperty("background", "#F5F5F5", Color(0xFFF5F5F5)),
+                StyleProperty("shape", "RoundedCorner(12dp)"),
+                StyleProperty("contentPadding", "20×16dp"),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        val anyChecked = toggleStates.any { it.value }
+        ActiveStyleProperties(
+            label = "checked() — active on toggled cards",
+            properties = listOf(
+                StyleProperty("background", "green@15%", AccentGreen.copy(alpha = 0.15f)),
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "#00C853", AccentGreen),
+            ),
+            visible = anyChecked,
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -163,6 +212,31 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(8.dp))
 
         DisabledDemoCard(enabled = cardEnabled)
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActiveStyleProperties(
+            label = "Style { } — base properties",
+            properties = listOf(
+                StyleProperty("background", "orange@15%", AccentOrange.copy(alpha = 0.15f)),
+                StyleProperty("shape", "RoundedCorner(12dp)"),
+                StyleProperty("borderWidth", "2dp"),
+                StyleProperty("borderColor", "#FF6D00", AccentOrange),
+            ),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ActiveStyleProperties(
+            label = "disabled() — overrides when card is disabled",
+            properties = listOf(
+                StyleProperty("background", "#E0E0E0", Color(0xFFE0E0E0)),
+                StyleProperty("contentColor", "#9E9E9E", Color(0xFF9E9E9E)),
+                StyleProperty("scale", "0.98f"),
+                StyleProperty("borderColor", "#BDBDBD", Color(0xFFBDBDBD)),
+            ),
+            visible = !cardEnabled,
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
