@@ -1,22 +1,18 @@
 package com.example.composestylelab.labs.text_styling
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.MutableStyleState
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.checked
 import androidx.compose.foundation.style.pressed
 import androidx.compose.foundation.style.styleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -175,6 +170,7 @@ fun TextStylingLab(onBack: () -> Unit) {
                 StyleProperty("contentColor", "#FF6D00", Color(0xFFFF6D00)),
                 StyleProperty("letterSpacing", "4sp"),
                 StyleProperty("textDecoration", "Underline"),
+                StyleProperty("scale", "0.96f"),
                 StyleProperty("background", "#FFE0B2", Color(0xFFFFE0B2)),
             ),
         )
@@ -255,6 +251,8 @@ private fun WeightShiftDemo(
     onToggle: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val styleState = remember { MutableStyleState(MutableInteractionSource()) }
+    styleState.isChecked = isChecked
 
     val weightStyle = Style {
         contentColor(Color.DarkGray)
@@ -276,36 +274,11 @@ private fun WeightShiftDemo(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = weightStyle)
-            .toggleable(
-                value = isChecked,
-                onValueChange = onToggle,
-                role = Role.Checkbox,
-            ),
+            .styleable(styleState = styleState, style = weightStyle)
+            .clickable { onToggle(!isChecked) },
+        contentAlignment = Alignment.Center,
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = if (isChecked) "Bold & Blue" else "Tap to Shift Weight",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = "fontWeight + fontSize + contentColor",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            if (isChecked) {
-                Icon(
-                    imageVector = Icons.Filled.Check,
-                    contentDescription = "Checked",
-                    tint = Color(0xFF3D5AFE),
-                )
-            }
-        }
+        Text(text = if (isChecked) "Bold & Blue" else "Tap to Shift Weight")
     }
 }
 
@@ -329,24 +302,16 @@ private fun GradientTextDemo(modifier: Modifier = Modifier) {
             .styleable(style = gradientStyle),
         contentAlignment = Alignment.Center,
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "Gradient Styled Text",
-                style = MaterialTheme.typography.headlineSmall,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "contentBrush(Brush.linearGradient(...))",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+        Text(text = "Gradient Styled Text")
     }
 }
 
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 private fun PressReactiveTextDemo(modifier: Modifier = Modifier) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+
     val pressTextStyle = Style {
         contentColor(Color.Black)
         fontSize(18.sp)
@@ -360,6 +325,7 @@ private fun PressReactiveTextDemo(modifier: Modifier = Modifier) {
                 letterSpacing(4.sp)
                 textDecoration(TextDecoration.Underline)
                 background(Color(0xFFFFE0B2))
+                scale(0.96f)
             })
         })
     }
@@ -367,21 +333,10 @@ private fun PressReactiveTextDemo(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = pressTextStyle)
-            .clickable { },
+            .styleable(styleState = styleState, style = pressTextStyle)
+            .clickable(interactionSource = interactionSource, indication = null) { },
         contentAlignment = Alignment.Center,
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "Press & Hold Me",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "letterSpacing + textDecoration + contentColor",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+        Text(text = "Press & Hold Me")
     }
 }

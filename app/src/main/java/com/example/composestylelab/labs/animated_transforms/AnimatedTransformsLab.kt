@@ -1,6 +1,7 @@
 package com.example.composestylelab.labs.animated_transforms
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,9 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.MutableStyleState
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.checked
 import androidx.compose.foundation.style.pressed
@@ -28,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.example.composestylelab.components.ActiveStyleProperties
 import com.example.composestylelab.components.CodeSnippet
@@ -249,6 +249,9 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 private fun BouncyPressButton(modifier: Modifier = Modifier) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+
     val bouncyStyle = Style {
         background(Color(0xFFFF6D00))
         shape(RoundedCornerShape(16.dp))
@@ -263,8 +266,8 @@ private fun BouncyPressButton(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = bouncyStyle)
-            .clickable { },
+            .styleable(styleState = styleState, style = bouncyStyle)
+            .clickable(interactionSource = interactionSource, indication = null) { },
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -289,6 +292,9 @@ private fun SpinOnSelectCard(
     onToggle: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val styleState = remember { MutableStyleState(MutableInteractionSource()) }
+    styleState.isChecked = isChecked
+
     val spinStyle = Style {
         background(Color(0xFF3D5AFE))
         shape(RoundedCornerShape(16.dp))
@@ -304,12 +310,8 @@ private fun SpinOnSelectCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = spinStyle)
-            .toggleable(
-                value = isChecked,
-                onValueChange = onToggle,
-                role = Role.Checkbox,
-            ),
+            .styleable(styleState = styleState, style = spinStyle)
+            .clickable { onToggle(!isChecked) },
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -346,6 +348,8 @@ private fun TranslationSlideCard(
     onToggle: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val styleState = remember { MutableStyleState(MutableInteractionSource()) }
+    styleState.isChecked = isChecked
 
     val slideStyle = Style {
         background(Color(0xFF00BCD4))
@@ -362,12 +366,8 @@ private fun TranslationSlideCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = slideStyle)
-            .toggleable(
-                value = isChecked,
-                onValueChange = onToggle,
-                role = Role.Checkbox,
-            ),
+            .styleable(styleState = styleState, style = slideStyle)
+            .clickable { onToggle(!isChecked) },
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

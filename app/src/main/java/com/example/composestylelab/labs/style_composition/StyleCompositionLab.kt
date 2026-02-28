@@ -1,6 +1,7 @@
 package com.example.composestylelab.labs.style_composition
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.MutableStyleState
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.pressed
 import androidx.compose.foundation.style.styleable
@@ -94,10 +96,14 @@ fun StyleCompositionLab(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        val previewInteractionSource = remember { MutableInteractionSource() }
+        val previewStyleState = remember { MutableStyleState(previewInteractionSource) }
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .styleable(
+                    styleState = previewStyleState,
                     style = composedStyle.then(
                         Style {
                             pressed(Style {
@@ -108,7 +114,10 @@ fun StyleCompositionLab(onBack: () -> Unit) {
                         },
                     ),
                 )
-                .clickable { },
+                .clickable(
+                    interactionSource = previewInteractionSource,
+                    indication = null,
+                ) { },
         ) {
             Column {
                 Text(

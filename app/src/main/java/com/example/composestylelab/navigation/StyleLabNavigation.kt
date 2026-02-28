@@ -9,7 +9,7 @@ import com.example.composestylelab.home.HomeScreen
 import com.example.composestylelab.labs.interactive_buttons.InteractiveButtonsLab
 import com.example.composestylelab.labs.state_driven_cards.StateDrivenCardsLab
 import com.example.composestylelab.labs.animated_transforms.AnimatedTransformsLab
-import com.example.composestylelab.labs.shadow_play.ShadowPlayLab
+import com.example.composestylelab.labs.micro_interactions.MicroInteractionsLab
 import com.example.composestylelab.labs.style_composition.StyleCompositionLab
 import com.example.composestylelab.labs.text_styling.TextStylingLab
 import com.example.composestylelab.labs.theme_integration.ThemeIntegrationLab
@@ -48,8 +48,8 @@ fun StyleLabNavigation(modifier: Modifier = Modifier) {
             AnimatedTransformsLab(onBack = { navController.popBackStack() })
         }
 
-        composable(LabRoute.ShadowPlay.name) {
-            ShadowPlayLab(onBack = { navController.popBackStack() })
+        composable(LabRoute.MicroInteractions.name) {
+            MicroInteractionsLab(onBack = { navController.popBackStack() })
         }
 
         composable(LabRoute.TextStyling.name) {

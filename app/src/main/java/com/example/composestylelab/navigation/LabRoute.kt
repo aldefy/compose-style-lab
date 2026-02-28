@@ -28,9 +28,9 @@ enum class LabRoute(
         subtitle = "scale, rotation, translation",
         accentColor = LabOrange,
     ),
-    ShadowPlay(
-        title = "Shadow Play",
-        subtitle = "dropShadow, innerShadow",
+    MicroInteractions(
+        title = "Micro-Interactions",
+        subtitle = "favorite, nav bar, pill toggle",
         accentColor = LabPink,
     ),
     TextStyling(

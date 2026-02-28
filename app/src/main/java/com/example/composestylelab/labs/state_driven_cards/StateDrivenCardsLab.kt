@@ -1,6 +1,7 @@
 package com.example.composestylelab.labs.state_driven_cards
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,10 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.MutableStyleState
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.checked
 import androidx.compose.foundation.style.disabled
@@ -313,6 +313,10 @@ private fun SelectableCard(
     onSelect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+    styleState.isSelected = isSelected
+
     val cardStyle = Style {
         background(Color(0xFFF5F5F5))
         shape(RoundedCornerShape(12.dp))
@@ -333,12 +337,11 @@ private fun SelectableCard(
 
     Box(
         modifier = modifier
-            .styleable(style = cardStyle)
-            .selectable(
-                selected = isSelected,
-                onClick = onSelect,
-                role = Role.RadioButton,
-            ),
+            .styleable(styleState = styleState, style = cardStyle)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) { onSelect() },
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -372,6 +375,10 @@ private fun ToggleableCard(
     onToggle: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+    styleState.isChecked = isChecked
+
     val cardStyle = Style {
         background(Color(0xFFF5F5F5))
         shape(RoundedCornerShape(12.dp))
@@ -393,12 +400,11 @@ private fun ToggleableCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = cardStyle)
-            .toggleable(
-                value = isChecked,
-                onValueChange = { onToggle() },
-                role = Role.Checkbox,
-            ),
+            .styleable(styleState = styleState, style = cardStyle)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) { onToggle() },
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -434,6 +440,10 @@ private fun DisabledDemoCard(
     enabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+    styleState.isEnabled = enabled
+
     val cardStyle = Style {
         background(AccentOrange.copy(alpha = 0.15f))
         shape(RoundedCornerShape(12.dp))
@@ -457,8 +467,12 @@ private fun DisabledDemoCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = cardStyle)
-            .clickable(enabled = enabled) { },
+            .styleable(styleState = styleState, style = cardStyle)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = enabled,
+            ) { },
     ) {
         Column {
             Text(

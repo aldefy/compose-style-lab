@@ -1,6 +1,7 @@
 package com.example.composestylelab.labs.theme_integration
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.MutableStyleState
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.pressed
 import androidx.compose.foundation.style.styleable
@@ -255,6 +257,9 @@ private fun ThemedCardDemo(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 private fun ThemedPressButtonDemo(modifier: Modifier = Modifier) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+
     val primary = MaterialTheme.colorScheme.primary
     val onPrimary = MaterialTheme.colorScheme.onPrimary
     val surface = MaterialTheme.colorScheme.surface
@@ -285,8 +290,11 @@ private fun ThemedPressButtonDemo(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = buttonStyle)
-            .clickable { },
+            .styleable(styleState = styleState, style = buttonStyle)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) { },
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -309,6 +317,9 @@ private fun ThemedPressButtonDemo(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 private fun ThemedOutlineDemo(modifier: Modifier = Modifier) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val styleState = remember { MutableStyleState(interactionSource) }
+
     val secondary = MaterialTheme.colorScheme.secondary
     val tertiary = MaterialTheme.colorScheme.tertiary
     val surfaceVariant = MaterialTheme.colorScheme.surfaceVariant
@@ -341,8 +352,11 @@ private fun ThemedOutlineDemo(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .styleable(style = outlineStyle)
-            .clickable { },
+            .styleable(styleState = styleState, style = outlineStyle)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) { },
     ) {
         Column {
             Text(
