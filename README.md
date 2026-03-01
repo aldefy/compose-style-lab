@@ -27,7 +27,7 @@ val isPressed by interactionSource.collectIsPressedAsState()
 val bgColor by animateColorAsState(if (isPressed) Color.DarkBlue else Color.Blue)
 val scale by animateFloatAsState(if (isPressed) 0.95f else 1f)
 
-// After: Declare what each state looks like. Done.
+// After: Visual states in one block (still needs MutableStyleState wiring — see below)
 val style = Style {
     background(Color.Blue)
     shape(RoundedCornerShape(12.dp))
@@ -88,9 +88,9 @@ Styles read `MaterialTheme` colors at resolution time. Toggle dark/light mode an
 
 ---
 
-## Critical Alpha06 Gotcha
+## MutableStyleState wiring
 
-`styleable(style = myStyle)` without an explicit `styleState` does **NOT** detect interaction states from sibling modifiers. You must create and pass a `MutableStyleState`:
+`styleable(style = myStyle)` without an explicit `styleState` does not detect interaction states from sibling modifiers. This is by design — earlier alphas had auto-detection but it conflicted with the interactionSource on clickable/toggleable. You wire it yourself:
 
 ```kotlin
 // Toggle states (checked, selected, enabled) — set explicitly:
