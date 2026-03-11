@@ -204,13 +204,13 @@ fun TextStylingLab(onBack: () -> Unit) {
                     contentColor(Color.DarkGray)
                     fontWeight(FontWeight.Normal)
                     fontSize(20.sp)
-                    checked(Style {
-                        animate(Style {
+                    checked {
+                        animate {
                             fontWeight(FontWeight.Bold)
                             contentColor(Color(0xFF3D5AFE))
                             fontSize(24.sp)
-                        })
-                    })
+                        }
+                    }
                 }
 
                 // Gradient brush text
@@ -229,13 +229,13 @@ fun TextStylingLab(onBack: () -> Unit) {
                     contentColor(Color.Black)
                     fontSize(18.sp)
                     letterSpacing(0.sp)
-                    pressed(Style {
-                        animate(Style {
+                    pressed {
+                        animate {
                             contentColor(Color(0xFFFF6D00))
                             letterSpacing(4.sp)
                             textDecoration(TextDecoration.Underline)
-                        })
-                    })
+                        }
+                    }
                 }
             """,
         )
@@ -261,14 +261,14 @@ private fun WeightShiftDemo(
         background(Color(0xFFF5F5F5))
         shape(RoundedCornerShape(16.dp))
         contentPadding(24.dp)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 fontWeight(FontWeight.Bold)
                 contentColor(Color(0xFF3D5AFE))
                 fontSize(24.sp)
                 background(Color(0xFFE8EAF6))
-            })
-        })
+            }
+        }
     }
 
     Box(
@@ -319,15 +319,15 @@ private fun PressReactiveTextDemo(modifier: Modifier = Modifier) {
         background(Color(0xFFFFF3E0))
         shape(RoundedCornerShape(16.dp))
         contentPadding(24.dp)
-        pressed(Style {
-            animate(Style {
+        pressed {
+            animate {
                 contentColor(Color(0xFFFF6D00))
                 letterSpacing(4.sp)
                 textDecoration(TextDecoration.Underline)
                 background(Color(0xFFFFE0B2))
                 scale(0.96f)
-            })
-        })
+            }
+        }
     }
 
     Box(

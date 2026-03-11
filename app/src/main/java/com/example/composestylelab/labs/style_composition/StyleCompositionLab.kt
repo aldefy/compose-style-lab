@@ -106,11 +106,11 @@ fun StyleCompositionLab(onBack: () -> Unit) {
                     styleState = previewStyleState,
                     style = composedStyle.then(
                         Style {
-                            pressed(Style {
-                                animate(Style {
+                            pressed {
+                                animate {
                                     scale(0.97f)
-                                })
-                            })
+                                }
+                            }
                         },
                     ),
                 )

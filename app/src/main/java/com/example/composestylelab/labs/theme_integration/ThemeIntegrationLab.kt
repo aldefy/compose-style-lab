@@ -111,7 +111,7 @@ fun ThemeIntegrationLab(onBack: () -> Unit) {
                     Spacer(modifier = Modifier.height(6.dp))
 
                     ActiveStyleProperties(
-                        label = "PRESSED \u2192 animate(Style { ... })",
+                        label = "PRESSED \u2192 animate { ... }",
                         properties = listOf(
                             StyleProperty("background", "surface"),
                             StyleProperty("contentColor", "onSurface"),
@@ -178,12 +178,12 @@ fun ThemeIntegrationLab(onBack: () -> Unit) {
                             contentPadding(20.dp)
                             borderWidth(2.dp)
                             borderColor(primary)
-                            pressed(Style {
-                                animate(Style {
+                            pressed {
+                                animate {
                                     background(primary)
                                     contentColor(surface)
-                                })
-                            })
+                                }
+                            }
                         }
 
                         Box(
@@ -270,13 +270,13 @@ private fun ThemedPressButtonDemo(modifier: Modifier = Modifier) {
         contentColor(onPrimary)
         shape(RoundedCornerShape(12.dp))
         contentPadding(16.dp)
-        pressed(Style {
-            animate(Style {
+        pressed {
+            animate {
                 background(surface)
                 contentColor(onSurface)
                 scale(0.95f)
-            })
-        })
+            }
+        }
     }
 
     Text(
@@ -332,13 +332,13 @@ private fun ThemedOutlineDemo(modifier: Modifier = Modifier) {
         contentPadding(16.dp)
         borderWidth(1.dp)
         borderColor(secondary)
-        pressed(Style {
-            animate(Style {
+        pressed {
+            animate {
                 borderWidth(3.dp)
                 borderColor(tertiary)
                 background(tertiary.copy(alpha = 0.15f))
-            })
-        })
+            }
+        }
     }
 
     Text(

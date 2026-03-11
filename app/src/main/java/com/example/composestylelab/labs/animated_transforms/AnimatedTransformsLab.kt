@@ -83,7 +83,7 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "PRESSED \u2192 animate(Style { ... })  \u2022  press & hold to activate",
+            label = "PRESSED \u2192 animate { ... }  \u2022  press & hold to activate",
             properties = listOf(
                 StyleProperty("scale", "0.85f"),
             ),
@@ -127,7 +127,7 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "CHECKED \u2192 animate(Style { ... })",
+            label = "CHECKED \u2192 animate { ... }",
             properties = listOf(
                 StyleProperty("rotationZ", "360f"),
                 StyleProperty("background", "#00C853", Color(0xFF00C853)),
@@ -173,7 +173,7 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "CHECKED \u2192 animate(Style { ... })",
+            label = "CHECKED \u2192 animate { ... }",
             properties = listOf(
                 StyleProperty("translationX", "50f"),
                 StyleProperty("translationY", "-10f"),
@@ -209,9 +209,9 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
                     background(Color(0xFFFF6D00))
                     shape(RoundedCornerShape(16.dp))
                     contentPadding(24.dp)
-                    pressed(Style {
-                        animate(Style { scale(0.85f) })
-                    })
+                    pressed {
+                        animate { scale(0.85f) }
+                    }
                 }
 
                 // Spin on select with rotation + color
@@ -219,12 +219,12 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
                     background(Color(0xFF3D5AFE))
                     shape(RoundedCornerShape(16.dp))
                     contentPadding(20.dp)
-                    checked(Style {
-                        animate(Style {
+                    checked {
+                        animate {
                             rotationZ(360f)
                             background(Color(0xFF00C853))
-                        })
-                    })
+                        }
+                    }
                 }
 
                 // Translation slide
@@ -232,12 +232,12 @@ fun AnimatedTransformsLab(onBack: () -> Unit) {
                     background(Color(0xFF00BCD4))
                     shape(RoundedCornerShape(16.dp))
                     contentPadding(20.dp)
-                    checked(Style {
-                        animate(Style {
+                    checked {
+                        animate {
                             translationX(50f)
                             translationY(-10f)
-                        })
-                    })
+                        }
+                    }
                 }
             """,
         )
@@ -256,11 +256,11 @@ private fun BouncyPressButton(modifier: Modifier = Modifier) {
         background(Color(0xFFFF6D00))
         shape(RoundedCornerShape(16.dp))
         contentPadding(24.dp)
-        pressed(Style {
-            animate(Style {
+        pressed {
+            animate {
                 scale(0.85f)
-            })
-        })
+            }
+        }
     }
 
     Box(
@@ -299,12 +299,12 @@ private fun SpinOnSelectCard(
         background(Color(0xFF3D5AFE))
         shape(RoundedCornerShape(16.dp))
         contentPadding(20.dp)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 rotationZ(360f)
                 background(Color(0xFF00C853))
-            })
-        })
+            }
+        }
     }
 
     Box(
@@ -355,12 +355,12 @@ private fun TranslationSlideCard(
         background(Color(0xFF00BCD4))
         shape(RoundedCornerShape(16.dp))
         contentPadding(20.dp)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 translationX(50f)
                 translationY(-10f)
-            })
-        })
+            }
+        }
     }
 
     Box(

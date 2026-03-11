@@ -265,13 +265,13 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
                     background(Color(0xFFF5F5F5))
                     shape(RoundedCornerShape(12.dp))
                     contentPadding(16.dp)
-                    selected(Style {
-                        animate(Style {
+                    selected {
+                        animate {
                             background(accentColor.copy(alpha = 0.15f))
                             borderWidth(2.dp)
                             borderColor(accentColor)
-                        })
-                    })
+                        }
+                    }
                 }
                 Box(
                     modifier = Modifier
@@ -284,20 +284,20 @@ fun StateDrivenCardsLab(onBack: () -> Unit) {
                 )
 
                 // Checked state:
-                checked(Style {
-                    animate(Style {
+                checked {
+                    animate {
                         background(Color(0xFF00C853).copy(0.15f))
                         borderWidth(2.dp)
                         borderColor(Color(0xFF00C853))
-                    })
-                })
+                    }
+                }
 
                 // Disabled state:
-                disabled(Style {
+                disabled {
                     background(Color(0xFFE0E0E0))
                     contentColor(Color(0xFF9E9E9E))
                     scale(0.98f)
-                })
+                }
             """,
         )
 
@@ -321,18 +321,18 @@ private fun SelectableCard(
         background(Color(0xFFF5F5F5))
         shape(RoundedCornerShape(12.dp))
         contentPadding(16.dp)
-        selected(Style {
-            animate(Style {
+        selected {
+            animate {
                 background(AccentBlue.copy(alpha = 0.15f))
                 borderWidth(2.dp)
                 borderColor(AccentBlue)
-            })
-        })
-        pressed(Style {
-            animate(Style {
+            }
+        }
+        pressed {
+            animate {
                 scale(0.95f)
-            })
-        })
+            }
+        }
     }
 
     Box(
@@ -383,18 +383,18 @@ private fun ToggleableCard(
         background(Color(0xFFF5F5F5))
         shape(RoundedCornerShape(12.dp))
         contentPadding(horizontal = 20.dp, vertical = 16.dp)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 background(AccentGreen.copy(alpha = 0.15f))
                 borderWidth(2.dp)
                 borderColor(AccentGreen)
-            })
-        })
-        pressed(Style {
-            animate(Style {
+            }
+        }
+        pressed {
+            animate {
                 scale(0.97f)
-            })
-        })
+            }
+        }
     }
 
     Box(
@@ -450,18 +450,18 @@ private fun DisabledDemoCard(
         contentPadding(horizontal = 20.dp, vertical = 16.dp)
         borderWidth(2.dp)
         borderColor(AccentOrange)
-        disabled(Style {
+        disabled {
             background(Color(0xFFE0E0E0))
             contentColor(Color(0xFF9E9E9E))
             scale(0.98f)
             borderWidth(1.dp)
             borderColor(Color(0xFFBDBDBD))
-        })
-        pressed(Style {
-            animate(Style {
+        }
+        pressed {
+            animate {
                 scale(0.95f)
-            })
-        })
+            }
+        }
     }
 
     Box(

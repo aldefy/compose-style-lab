@@ -89,9 +89,9 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                     shape(CircleShape)
                     contentPadding(horizontal = 20.dp, vertical = 10.dp)
                     contentColor(Color.Black)
-                    pressed(Style {
-                        animate(Style { scale(0.9f) })
-                    })
+                    pressed {
+                        animate { scale(0.9f) }
+                    }
                 },
             ) {
                 Text("Pill Shape")
@@ -104,9 +104,9 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                     shape(CutCornerShape(6.dp))
                     contentPadding(horizontal = 16.dp, vertical = 8.dp)
                     contentColor(Color.White)
-                    pressed(Style {
-                        animate(Style { scale(0.92f) })
-                    })
+                    pressed {
+                        animate { scale(0.92f) }
+                    }
                 },
             ) {
                 Text("Cut Corners")
@@ -121,9 +121,9 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                     contentColor(Color.White)
                     borderWidth(1.dp)
                     borderColor(Color(0xFFBB86FC))
-                    pressed(Style {
-                        animate(Style { scale(0.95f) })
-                    })
+                    pressed {
+                        animate { scale(0.95f) }
+                    }
                 },
             ) {
                 Text("Bordered")
@@ -196,9 +196,9 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                 shape(RoundedCornerShape(24.dp))
                 contentPadding(24.dp)
                 contentColor(Color.White)
-                pressed(Style {
-                    animate(Style { scale(0.97f) })
-                })
+                pressed {
+                    animate { scale(0.97f) }
+                }
             },
         ) {
             Column {
@@ -225,9 +225,9 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                 contentColor(Color(0xFF4E342E))
                 borderWidth(1.dp)
                 borderColor(Color(0xFFFFCC80))
-                pressed(Style {
-                    animate(Style { scale(0.98f) })
-                })
+                pressed {
+                    animate { scale(0.98f) }
+                }
             },
         ) {
             Column {
@@ -328,7 +328,7 @@ fun CustomComponentsLab(onBack: () -> Unit) {
                         shape(RoundedCornerShape(8.dp))
                         contentPadding(horizontal = 16.dp, vertical = 8.dp)
                         contentColor(MaterialTheme.colorScheme.onSecondaryContainer)
-                        pressed(Style { animate(Style { scale(0.95f) }) })
+                        pressed { animate { scale(0.95f) } }
                     }
                 }
 

@@ -27,11 +27,11 @@ object StyledChipDefaults {
             shape(RoundedCornerShape(8.dp))
             contentPadding(horizontal = 16.dp, vertical = 8.dp)
             contentColor(fg)
-            pressed(Style {
-                animate(Style {
+            pressed {
+                animate {
                     scale(0.95f)
-                })
-            })
+                }
+            }
         }
     }
 }

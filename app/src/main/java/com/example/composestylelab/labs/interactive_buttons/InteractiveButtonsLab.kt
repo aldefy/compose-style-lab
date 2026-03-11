@@ -85,27 +85,27 @@ fun InteractiveButtonsLab(onBack: () -> Unit) {
             background(baseColor)
             shape(RoundedCornerShape(16.dp))
             contentPadding(horizontal = 32.dp, vertical = 24.dp)
-            pressed(Style {
-                animate(Style {
+            pressed {
+                animate {
                     background(Color(0xFF1A237E))
                     scale(0.92f)
-                })
-            })
-            hovered(Style {
-                animate(Style {
+                }
+            }
+            hovered {
+                animate {
                     background(Color(0xFF536DFE))
                     scale(1.04f)
                     borderWidth(2.dp)
                     borderColor(Color.White.copy(alpha = 0.5f))
-                })
-            })
-            focused(Style {
-                animate(Style {
+                }
+            }
+            focused {
+                animate {
                     borderWidth(3.dp)
                     borderColor(Color.White)
                     background(Color(0xFF304FFE))
-                })
-            })
+                }
+            }
         }
 
         Box(
@@ -167,19 +167,19 @@ fun InteractiveButtonsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(6.dp))
 
         ActiveStyleProperties(
-            label = "PRESSED → animate(Style { ... })",
+            label = "PRESSED → animate { ... }",
             properties = pressedProperties,
             visible = isPressed,
         )
 
         ActiveStyleProperties(
-            label = "HOVERED → animate(Style { ... })",
+            label = "HOVERED → animate { ... }",
             properties = hoveredProperties,
             visible = isHovered,
         )
 
         ActiveStyleProperties(
-            label = "FOCUSED → animate(Style { ... })",
+            label = "FOCUSED → animate { ... }",
             properties = focusedProperties,
             visible = isFocused,
         )
@@ -213,24 +213,24 @@ fun InteractiveButtonsLab(onBack: () -> Unit) {
                     background(Color.Blue)
                     shape(RoundedCornerShape(16.dp))
 
-                    pressed(Style {
-                        animate(Style {
+                    pressed {
+                        animate {
                             background(Color.DarkBlue)
                             scale(0.92f)
-                        })
-                    })
-                    hovered(Style {
-                        animate(Style {
+                        }
+                    }
+                    hovered {
+                        animate {
                             background(Color.LightBlue)
                             scale(1.04f)
-                        })
-                    })
-                    focused(Style {
-                        animate(Style {
+                        }
+                    }
+                    focused {
+                        animate {
                             borderWidth(3.dp)
                             borderColor(Color.White)
-                        })
-                    })
+                        }
+                    }
                 }
 
                 Box(

@@ -25,11 +25,11 @@ object StyledCardDefaults {
             background(bg)
             shape(RoundedCornerShape(16.dp))
             contentPadding(20.dp)
-            pressed(Style {
-                animate(Style {
+            pressed {
+                animate {
                     scale(0.98f)
-                })
-            })
+                }
+            }
         }
     }
 }

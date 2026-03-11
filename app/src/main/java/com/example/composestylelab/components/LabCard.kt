@@ -39,12 +39,12 @@ fun LabCard(
                     background(surfaceColor)
                     shape(RoundedCornerShape(16.dp))
                     contentPadding(16.dp)
-                    pressed(Style {
-                        animate(Style {
+                    pressed {
+                        animate {
                             background(pressedColor)
                             scale(0.97f)
-                        })
-                    })
+                        }
+                    }
                 },
             )
             .clickable(onClick = onClick),

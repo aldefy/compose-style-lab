@@ -99,7 +99,7 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "CHECKED \u2192 animate(Style { ... })",
+            label = "CHECKED \u2192 animate { ... }",
             properties = listOf(
                 StyleProperty("background", "#FFEBEE", Color(0xFFFFEBEE)),
                 StyleProperty("contentColor", "#E53935", Color(0xFFE53935)),
@@ -148,7 +148,7 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "SELECTED \u2192 checked(animate(Style { }))",
+            label = "SELECTED \u2192 checked { animate { ... } }",
             properties = listOf(
                 StyleProperty("background", "primaryContainer"),
                 StyleProperty("contentColor", "primary"),
@@ -199,7 +199,7 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "ACTIVE \u2192 checked(animate(Style { }))",
+            label = "ACTIVE \u2192 checked { animate { ... } }",
             properties = listOf(
                 StyleProperty("background", "#E8F5E9", Color(0xFFE8F5E9)),
                 StyleProperty("contentColor", "#2E7D32", Color(0xFF2E7D32)),
@@ -250,7 +250,7 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         ActiveStyleProperties(
-            label = "ACTIVE \u2192 checked(animate(Style { }))",
+            label = "ACTIVE \u2192 checked { animate { ... } }",
             properties = listOf(
                 StyleProperty("background", "#FFF3E0", Color(0xFFFFF3E0)),
                 StyleProperty("contentColor", "#FF6D00", Color(0xFFFF6D00)),
@@ -274,7 +274,7 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
             text = "Each micro-interaction uses MutableStyleState with isChecked " +
                 "driven by component state. The Styles API handles all visual " +
                 "changes \u2014 background, contentColor, scale, border \u2014 with " +
-                "automatic animation via checked(Style { animate(Style { ... }) }).",
+                "automatic animation via checked(Style { animate { ... } }).",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -294,13 +294,13 @@ fun MicroInteractionsLab(onBack: () -> Unit) {
                     shape(CircleShape)
                     contentPadding(16.dp)
                     contentColor(Color.Gray)
-                    checked(Style {
-                        animate(Style {
+                    checked {
+                        animate {
                             background(Color(0xFFFFEBEE))
                             contentColor(Color(0xFFE53935))
                             scale(1.2f)
-                        })
-                    })
+                        }
+                    }
                 }
 
                 Box(
@@ -335,13 +335,13 @@ private fun FavoriteButton(
         shape(CircleShape)
         contentPadding(16.dp)
         contentColor(Color.Gray)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 background(Color(0xFFFFEBEE))
                 contentColor(Color(0xFFE53935))
                 scale(1.2f)
-            })
-        })
+            }
+        }
     }
 
     Row(
@@ -406,13 +406,13 @@ private fun NavBar(
                 contentPadding(horizontal = 12.dp, vertical = 8.dp)
                 contentColor(onSurfaceVariant)
                 shape(RoundedCornerShape(16.dp))
-                checked(Style {
-                    animate(Style {
+                checked {
+                    animate {
                         background(primaryContainer)
                         contentColor(primary)
                         scale(1.1f)
-                    })
-                })
+                    }
+                }
             }
 
             Box(
@@ -462,15 +462,15 @@ private fun PillToggle(
         contentColor(Color.Gray)
         borderWidth(1.dp)
         borderColor(Color(0xFFE0E0E0))
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 background(Color(0xFFE8F5E9))
                 contentColor(Color(0xFF2E7D32))
                 borderColor(Color(0xFF4CAF50))
                 borderWidth(2.dp)
                 fontWeight(FontWeight.Bold)
-            })
-        })
+            }
+        }
     }
 
     Row(
@@ -511,13 +511,13 @@ private fun NotificationBell(
         shape(RoundedCornerShape(16.dp))
         contentPadding(16.dp)
         contentColor(Color.Gray)
-        checked(Style {
-            animate(Style {
+        checked {
+            animate {
                 background(Color(0xFFFFF3E0))
                 contentColor(Color(0xFFFF6D00))
                 scale(1.05f)
-            })
-        })
+            }
+        }
     }
 
     Row(
